@@ -2,6 +2,14 @@
     ViewData["Title"] = "The Joel Hilton Film Collection";
 }
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+
 <div class="text-center">
     <h1 class="display-4">Welcome to the The Joel Hilton Film Collection</h1>
     <img src="/headshot.jpg"/>

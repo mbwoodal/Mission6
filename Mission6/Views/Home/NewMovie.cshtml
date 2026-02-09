@@ -1,5 +1,15 @@
 @model Mission6.Models.Movie
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+
 <h1>Add a New Movie: </h1>
 
 <form method="post">

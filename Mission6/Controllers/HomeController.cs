@@ -34,9 +34,26 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult NewMovie(Movie movie)
     {
-        _context.Movies.Add(movie);
-        _context.SaveChanges();
-        return RedirectToAction("Index");
+        if (!ModelState.IsValid)
+        {
+            ModelState.AddModelError("", "The movie could not be added.");
+            return View(movie);
+        }
+
+        try
+        {
+            _context.Movies.Add(movie);
+            _context.SaveChanges();
+
+            TempData["SuccessMessage"] = "Movie added successfully!";
+            return RedirectToAction("Index");
+        }
+        catch
+        {
+            ModelState.AddModelError("", "The movie could not be added due to a system error.");
+            return View(movie);
+        }
     }
+
     
 }
