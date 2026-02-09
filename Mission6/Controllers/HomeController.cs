@@ -31,6 +31,7 @@ public class HomeController : Controller
         return View();
     }
 
+    // added error handling to make sure invalid things aren't added to the db
     [HttpPost]
     public IActionResult NewMovie(Movie movie)
     {

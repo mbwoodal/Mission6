@@ -14,7 +14,7 @@ namespace Mission6.Models
         public string Title { get; set; }
         
         [Required]
-        [Range(1888, 2100, ErrorMessage = "Please enter a valid year.")]
+        [Range(1888, 2100, ErrorMessage = "Please enter a valid year.")] // This makes it so they have to enter a valid year
         public int Year { get; set; }
         
         [Required]
@@ -27,7 +27,7 @@ namespace Mission6.Models
         
         public string? LentTo { get; set; }
         
-        [StringLength(25, ErrorMessage = "Notes cannot be longer than 25 characters")]
+        [StringLength(25, ErrorMessage = "Notes cannot be longer than 25 characters")] // The string can't be longer than 25 characters
         public string? Notes {get; set;}
     }
 }
