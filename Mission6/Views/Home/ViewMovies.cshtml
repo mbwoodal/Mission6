@@ -1,0 +1,86 @@
+@* This file will display all of the movies in the Database *@
+
+
+@model List<Movie>
+
+<div class="container mt-5">
+
+    <!-- Centered Page Title -->
+    <h2 class="text-center mb-4">Joel Hilton's Movie Collection</h2>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-bordered align-middle shadow">
+            
+            <thead class="table-dark text-center">
+                <tr>
+                    <th>Category</th>
+                    <th>Title</th>
+                    <th>Year</th>
+                    <th>Director</th>
+                    <th>Rating</th>
+                    <th>Edited</th>
+                    <th>Lent To</th>
+                    <th>Copied to Plex</th>
+                    <th>Notes</th>
+                    <th colspan="2">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var x in Model)
+                {
+                    <tr>
+                        <td>@x.Category.CategoryName</td>
+                        <td>@x.Title</td>
+                        <td>@x.Year</td>
+                        <td>@x.Director</td>
+                        <td>@x.Rating</td>
+
+                        <!-- Edited Badge -->
+                        <td class="text-center">
+                            @if (x.Edited)
+                            {
+                                <span class="badge bg-success">Yes</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">No</span>
+                            }
+                        </td>
+
+                        <td>@x.LentTo</td>
+
+                        <!-- CopiedToPlex Badge -->
+                        <td class="text-center">
+                            @if (x.CopiedToPlex == 1)
+                            {
+                                <span class="badge bg-success">Yes</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">No</span>
+                            }
+                        </td>
+
+                        <td>@x.Notes</td>
+
+                        <!-- Edit Button -->
+                        <td class="text-center">
+                            <a class="btn btn-sm btn-warning" asp-controller="Home" asp-action="Edit" asp-route-id="@x.MovieId">Edit
+                            </a>
+                        </td>
+
+                        <!-- Delete Button -->
+                        <td class="text-center">
+                            <a class="btn btn-sm btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@x.MovieId">Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+

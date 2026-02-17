@@ -1,21 +1,20 @@
 @model Mission6.Models.Movie
 
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success">
-        @TempData["SuccessMessage"]
-    </div>
-}
-
-<div asp-validation-summary="All" class="text-danger"></div>
-
-
 <h1>Add a New Movie: </h1>
 
 @* Form to collect all the movie data *@
 <form method="post">
-    <label asp-for="Category">Category</label>
-    <input asp-for="Category"/>
+    
+    <input type="hidden" asp-for="MovieId"></input>
+    
+    <label asp-for="CategoryId">Category </label>
+    <select asp-for="CategoryId">
+        <option value="">--- Select a Category ---</option>
+        @foreach (Category x in ViewBag.Categories)
+        {
+            <option value="@x.CategoryId">@x.CategoryName</option>
+        }
+    </select>
     <br/>
     <br/>
     <label asp-for="Title">Title</label>
@@ -33,16 +32,15 @@
     <label asp-for="Rating">Rating </label>
     <select asp-for="Rating">
         <option value="">--- Select a rating ---</option>
-        <option value="G">G</option>
-        <option value="PG">PG</option>
-        <option value="PG-13">PG-13</option>
-        <option value="R">R</option>
+        @foreach (string rating in ViewBag.Ratings)
+        {
+            <option value="@rating">@rating</option>
+        }
     </select>
     <br/>
     <br/>
     <label asp-for="Edited">Edited </label>
     <select asp-for="Edited">
-        <option value="">--- Select one ---</option>
         <option value="true">Yes</option>
         <option value="false">No</option>
     </select>
@@ -52,9 +50,18 @@
     <input asp-for="LentTo"/>
     <br/>
     <br/>
+    <label asp-for="CopiedToPlex">Copied to Plex </label>
+    <select asp-for="CopiedToPlex">
+        <option value="1">Yes</option>
+        <option value="0">No</option>
+    </select>
+    <br/>
+    <br/>
     <label asp-for="Notes">Notes </label>
     <input asp-for="Notes"/>
     <br/>
     <br/>
     <button type="submit">Enter Movie</button>
+    
+    <div asp-validation-summary="All"></div>
 </form>

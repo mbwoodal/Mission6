@@ -30,6 +30,10 @@ build_property._RazorSourceGeneratorDebug =
 build_property.EffectiveAnalysisLevelStyle = 10.0
 build_property.EnableCodeStyleSeverity = 
 
+[/Users/michaelwoodall/RiderProjects/Mission6/Mission6/Views/Home/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9EZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/michaelwoodall/RiderProjects/Mission6/Mission6/Views/Home/GetToKnow.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9HZXRUb0tub3cuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -40,6 +44,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/michaelwoodall/RiderProjects/Mission6/Mission6/Views/Home/NewMovie.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9OZXdNb3ZpZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/michaelwoodall/RiderProjects/Mission6/Mission6/Views/Home/ViewMovies.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9WaWV3TW92aWVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/michaelwoodall/RiderProjects/Mission6/Mission6/Views/_ViewImports.cshtml]

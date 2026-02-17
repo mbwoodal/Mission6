@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Mission6.Models;
 
 // using Mission6.Models;
@@ -28,33 +29,105 @@ public class HomeController : Controller
     [HttpGet]
     public IActionResult NewMovie()
     {
-        return View();
-    }
+        ViewBag.Categories = _context.Categories
+            .OrderBy(x => x.CategoryName)
+            .ToList();
 
-    // added error handling to make sure invalid things aren't added to the db
+        ViewBag.Ratings = _context.Movies
+            .Select(x => x.Rating)
+            .Distinct()
+            .OrderBy(x => x)
+            .ToList();
+        
+        return View("NewMovie", new Movie());
+    }
+    
     [HttpPost]
     public IActionResult NewMovie(Movie movie)
     {
-        if (!ModelState.IsValid)
+        if (ModelState.IsValid)
         {
-            ModelState.AddModelError("", "The movie could not be added.");
-            return View(movie);
-        }
+            ViewBag.Categories = _context.Categories
+                .OrderBy(x => x.CategoryName)
+                .ToList();
 
-        try
-        {
+            ViewBag.Ratings = _context.Movies
+                .Select(x => x.Rating)
+                .Distinct()
+                .OrderBy(x => x)
+                .ToList();
+            
             _context.Movies.Add(movie);
             _context.SaveChanges();
-
-            TempData["SuccessMessage"] = "Movie added successfully!";
-            return RedirectToAction("Index");
+            
+            return View("Index", movie);
         }
-        catch
+        else
         {
-            ModelState.AddModelError("", "The movie could not be added due to a system error.");
+            ViewBag.Categories = _context.Categories
+                .OrderBy(c => c.CategoryName)
+                .ToList();
+            
+            ViewBag.Ratings = _context.Movies
+                .Select(x => x.Rating)
+                .Distinct()
+                .OrderBy(x => x)
+                .ToList();
+            
             return View(movie);
         }
     }
 
+    public IActionResult ViewMovies()
+    {
+        var movies = _context.Movies
+            .Include(x => x.Category)
+            .ToList();
+        
+        return View(movies);
+    }
+
+    [HttpGet]
+    public IActionResult Edit(int id)
+    {
+        var movieToEdit = _context.Movies
+            .Single(x => x.MovieId == id);
+        
+        ViewBag.Categories = _context.Categories
+            .OrderBy(c => c.CategoryName)
+            .ToList();
+            
+        ViewBag.Ratings = _context.Movies
+            .Select(x => x.Rating)
+            .Distinct()
+            .OrderBy(x => x)
+            .ToList();
+        
+        return View("NewMovie", movieToEdit);
+    }
+
+    [HttpPost]
+    public IActionResult Edit(Movie updatedMovie)
+    {
+        _context.Update(updatedMovie);
+        _context.SaveChanges();
+        return RedirectToAction("ViewMovies");
+    }
+
+    [HttpGet]
+    public IActionResult Delete(int id)
+    {
+        var movieToDelete = _context.Movies
+            .Single(x => x.MovieId == id);
+
+        return View(movieToDelete);
+    }
     
+    [HttpPost]
+    public IActionResult Delete(Movie movie)
+    {
+        _context.Movies.Remove(movie);
+        _context.SaveChanges();
+        return RedirectToAction("ViewMovies");
+    }
 }
